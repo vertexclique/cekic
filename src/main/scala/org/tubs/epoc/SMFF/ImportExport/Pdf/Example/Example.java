@@ -2,6 +2,7 @@ package org.tubs.epoc.SMFF.ImportExport.Pdf.Example;
 
 import java.io.File;
 
+import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
@@ -28,8 +29,8 @@ public class Example {
     SystemModel systemModel = new SystemModel();
 
     // specify the path to which the testcases are to be stored
-    String inputFile = "C://Testcases//System.xml";
-    String outputPath = "C://Testcases//";
+    String inputFile = "src/main/resources/smff_annotated.xml";
+    String outputPath = "";
     new File(outputPath).mkdirs();
 
     //-------------------------------------
@@ -41,7 +42,7 @@ public class Example {
     try {
       systemModel = new ModelLoader(inputFile).generateSystem();
     } catch (Exception e) {
-      logger.error("Error loading system model");
+      logger.error("Error loading system model :: " + ExceptionUtils.getStackTrace(e));
       return;
     }
 

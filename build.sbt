@@ -14,11 +14,13 @@ val clV = "1.2"
 val jdomV = "2.0.2"
 val jgraphV = "5.13.0.0"
 val itextpdfV = "2.1.7"
+val commonsLang3V = "3.8.1"
 
 libraryDependencies ++= Seq(
   "log4j"                       % "log4j"                 % log4jV,
   "commons-logging"             % "commons-logging"       % clV,
   "org.jdom"                    % "jdom"                  % jdomV,
   "jgraph"                      % "jgraph"                % jgraphV,
-  "com.lowagie"                 % "itext"                 % itextpdfV
+  "com.lowagie"                 % "itext"                 % itextpdfV,
+  "org.apache.commons"          % "commons-lang3"         % commonsLang3V
 )
