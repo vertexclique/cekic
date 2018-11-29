@@ -1,0 +1,23 @@
+## generic files to ignore
+*~
+*.lock
+*.DS_Store
+*.swp
+*.out
+
+logs
+target
+/.idea
+/.idea_modules
+/.classpath
+/.project
+/.settings
+/RUNNING_PID
+/.vagrant
+project/project/
+temp/
+.ivy2/
+.oracle_jre_usage/
+.sbt/
+.volumes/
+
