@@ -1,3 +1,7 @@
+import sbt.Keys._
+
+enablePlugins(JavaAppPackaging)
+
 name := "cekic"
 
 version := "0.1"
@@ -24,3 +28,13 @@ libraryDependencies ++= Seq(
   "com.lowagie"                 % "itext"                 % itextpdfV,
   "org.apache.commons"          % "commons-lang3"         % commonsLang3V
 )
+
+
+mainClass in (Compile, run) := Some("com.vertexclique.Main")
+mainClass in (Compile, packageBin) := Some("com.vertexclique.Main")
+
+assemblyMergeStrategy in assembly := {
+  case PathList("META-INF", xs @ _*) => MergeStrategy.discard
+  case "reference.conf" => MergeStrategy.concat
+  case _ => MergeStrategy.first
+}

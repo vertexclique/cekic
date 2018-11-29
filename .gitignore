@@ -21,3 +21,7 @@ temp/
 .sbt/
 .volumes/
 
+
+// executables
+cekic
+cekic-*
