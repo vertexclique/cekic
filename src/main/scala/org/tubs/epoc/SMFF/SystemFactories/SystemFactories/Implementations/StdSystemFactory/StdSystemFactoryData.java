@@ -1,6 +1,6 @@
 package org.tubs.epoc.SMFF.SystemFactories.SystemFactories.Implementations.StdSystemFactory;
 
-import org.jdom.Element;
+import org.jdom2.Element;
 import org.tubs.epoc.SMFF.SystemFactories.ApplicationFactories.Implementations.StdApplicationFactory.StdTgffApplicationFactoryData;
 import org.tubs.epoc.SMFF.SystemFactories.Mappers.Implementations.StdMapper.SensActMapperData;
 import org.tubs.epoc.SMFF.SystemFactories.PlatformFactories.Implementations.StdPlatformFactory.StdPlatformFactoryData;

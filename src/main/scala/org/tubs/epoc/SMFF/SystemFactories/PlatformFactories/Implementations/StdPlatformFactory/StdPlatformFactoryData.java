@@ -1,6 +1,6 @@
 package org.tubs.epoc.SMFF.SystemFactories.PlatformFactories.Implementations.StdPlatformFactory;
 
-import org.jdom.Element;
+import org.jdom2.Element;
 import org.tubs.epoc.SMFF.SystemFactories.PlatformFactories.AbstractPlatformFactoryData;
 
 /**

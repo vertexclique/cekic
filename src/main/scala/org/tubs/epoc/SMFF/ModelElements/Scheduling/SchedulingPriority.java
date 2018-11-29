@@ -1,6 +1,6 @@
 package org.tubs.epoc.SMFF.ModelElements.Scheduling;
 
-import org.jdom.Element;
+import org.jdom2.Element;
 
 public class SchedulingPriority extends AbstractSchedulingParameter{
 	  // the below field may not contain any whitespaces (restriction from JDOM where it is saved as new element)

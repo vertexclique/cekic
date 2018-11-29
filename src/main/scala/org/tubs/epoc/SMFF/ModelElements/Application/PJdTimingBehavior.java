@@ -1,6 +1,6 @@
 package org.tubs.epoc.SMFF.ModelElements.Application;
 
-import org.jdom.Element;
+import org.jdom2.Element;
 import org.tubs.epoc.SMFF.ImportExport.XML.XMLSaveable;
 
 /**

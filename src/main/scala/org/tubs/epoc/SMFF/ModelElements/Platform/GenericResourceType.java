@@ -1,6 +1,6 @@
 package org.tubs.epoc.SMFF.ModelElements.Platform;
 
-import org.jdom.Element;
+import org.jdom2.Element;
 
 
 public class GenericResourceType extends AbstractResourceType {

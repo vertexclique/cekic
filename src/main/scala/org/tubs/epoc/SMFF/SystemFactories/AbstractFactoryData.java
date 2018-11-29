@@ -1,6 +1,6 @@
 package org.tubs.epoc.SMFF.SystemFactories;
 
-import org.jdom.Element;
+import org.jdom2.Element;
 
 /**
  * Abstract class to manipulate the factory.

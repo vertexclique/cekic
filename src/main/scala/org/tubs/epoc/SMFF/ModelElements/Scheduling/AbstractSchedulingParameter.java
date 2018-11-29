@@ -1,6 +1,6 @@
 package org.tubs.epoc.SMFF.ModelElements.Scheduling;
 
-import org.jdom.Element;
+import org.jdom2.Element;
 import org.tubs.epoc.SMFF.ImportExport.XML.XMLSaveable;
 
 public abstract class AbstractSchedulingParameter implements XMLSaveable, Cloneable{

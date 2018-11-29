@@ -1,6 +1,6 @@
 package org.tubs.epoc.SMFF.ImportExport.XML;
 
-import org.jdom.Element;
+import org.jdom2.Element;
 
 /**
  * Interface to support saving to XML and loading from XML.

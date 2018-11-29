@@ -1,6 +1,6 @@
 package org.tubs.epoc.SMFF.ModelElements.Platform;
 
-import org.jdom.Element;
+import org.jdom2.Element;
 
 public class GenericResourceGroup extends AbstractResourceGroup {
   // the below field may not contain any whitespaces (restriction from JDOM where it is saved as new element)

@@ -1,6 +1,6 @@
 package org.tubs.epoc.SMFF.PyCPAInterface.Analysis.ModelExtensions;
 
-import org.jdom.Element;
+import org.jdom2.Element;
 import org.tubs.epoc.SMFF.ImportExport.XML.XMLSaveable;
 import org.tubs.epoc.SMFF.ModelElements.Platform.AbstractResourceData;
 

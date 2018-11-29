@@ -3,7 +3,7 @@ package org.tubs.epoc.SMFF.ImportExport.XML;
 import java.lang.reflect.Constructor;
 import java.util.HashMap;
 
-import org.jdom.Element;
+import org.jdom2.Element;
 
 /**
  * This class provides a factory to create data extension elements from an XML description. The xml elements need to
@@ -23,7 +23,7 @@ public class XMLFactory {
 	 * The xml element description to be passed to this parameter will contain an attribute called "classname", value of
 	 * which must be an instance of interface {@link XMLSaveable XMLSaveable}. This method will instantiate an
 	 * implementation of {@link XMLSaveable XMLSaveable} interface and return it. The implementation must include a
-	 * constructor which has a single parameter of type {@link org.jdom.Element org.jdom.Element}.
+	 * constructor which has a single parameter of type {@link org.jdom2.Element org.jdom2.Element}.
 	 * 
 	 * @param element
 	 *          jdom element from which the class information to be instantiated will be extracted.
