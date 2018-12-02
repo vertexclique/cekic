@@ -1,6 +1,7 @@
 import sbt.Keys._
 
 enablePlugins(JavaAppPackaging)
+enablePlugins(BuildInfoPlugin)
 
 name := "cekic"
 
@@ -21,6 +22,7 @@ val itextpdfV = "2.1.7"
 val commonsLang3V = "3.8.1"
 
 libraryDependencies ++= Seq(
+  "com.github.scopt"            %% "scopt"                % "3.7.0",
   "log4j"                       % "log4j"                 % log4jV,
   "commons-logging"             % "commons-logging"       % clV,
   "org.jdom"                    % "jdom"                  % jdomV,
@@ -29,9 +31,10 @@ libraryDependencies ++= Seq(
   "org.apache.commons"          % "commons-lang3"         % commonsLang3V
 )
 
+buildInfoKeys := Seq[BuildInfoKey](name, version)
 
-mainClass in (Compile, run) := Some("com.vertexclique.Main")
-mainClass in (Compile, packageBin) := Some("com.vertexclique.Main")
+mainClass in (Compile, run) := Some("com.vertexclique.cekic.Main")
+mainClass in (Compile, packageBin) := Some("com.vertexclique.cekic.Main")
 
 assemblyMergeStrategy in assembly := {
   case PathList("META-INF", xs @ _*) => MergeStrategy.discard
