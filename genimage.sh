@@ -12,4 +12,4 @@ native-image --no-server \
 -jar target/scala-2.12/cekic-assembly-0.1.jar \
 --verbose
 
-mv cekic{-assembly-0.1,}
+mv cekic{-assembly-0.1,-bin}

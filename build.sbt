@@ -22,6 +22,9 @@ val itextpdfV = "2.1.7"
 val commonsLang3V = "3.8.1"
 
 libraryDependencies ++= Seq(
+  "org.json4s"                  %% "json4s-jackson"       % "3.6.2",
+  "org.json4s"                  %% "json4s-core"          % "3.6.2",
+  "org.json4s"                  %% "json4s-xml"           % "3.6.2",
   "com.github.scopt"            %% "scopt"                % "3.7.0",
   "log4j"                       % "log4j"                 % log4jV,
   "commons-logging"             % "commons-logging"       % clV,
