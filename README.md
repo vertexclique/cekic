@@ -4,6 +4,7 @@
 -----
 This application creates:
 * Approximately system that can be classified under automotive domain
+    * With that, it also creates runnable listing.
 * Bare OSEK style RTS system mappings (which is by default)
 
 ## Installation and Development
