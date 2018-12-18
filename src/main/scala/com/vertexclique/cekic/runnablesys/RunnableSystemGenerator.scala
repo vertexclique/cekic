@@ -39,8 +39,13 @@ object RunnableSystemGenerator {
           (1 to runAmount).map { runId =>
             val runnableBCETWCET = calculateRunnableBCETWCET(config.seed + runId)
 
+            val runnableId = if (duration == 0) {
+              s"R_AngleSync_${runId}"
+            }
+            else { s"R_${duration}us_${runId}" }
+
             RunnableBare(
-              id = s"R_${duration}us_${runId}",
+              id = runnableId,
               appId = app.getAppId,
               taskId = taskuuid,
               taskPriority = task.getPrio,
