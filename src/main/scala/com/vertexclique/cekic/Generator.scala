@@ -4,6 +4,7 @@ import java.io.File
 import java.io.IOException
 import java.io.PrintWriter
 
+import com.vertexclique.cekic.runnablesys.RunnableSystemGenerator
 import org.tubs.epoc.SMFF.ImportExport.Pdf.PdfPrinter
 import org.tubs.epoc.SMFF.ImportExport.XML.ModelLoader
 import org.tubs.epoc.SMFF.ImportExport.XML.ModelSaver
@@ -28,6 +29,7 @@ import org.json4s.jackson.JsonMethods._
 import scala.xml.XML
 
 object Generator {
+
   def generateMultipleSystems(config: Config) = {
     (1 to config.systemCount).foreach { x =>
       var systemModel = new SystemModel
@@ -149,7 +151,11 @@ object Generator {
 
       val xmlData = XML.loadFile(fSystem)
       new PrintWriter(fSystemJson) { write(pretty(render(toJson(xmlData)))); close }
-//      val loadedModel = new ModelLoader(fSystem).generateSystem
+      // val loadedModel = new ModelLoader(fSystem).generateSystem
+
+      // Generate runnable mappings ifof automotive app generation selected
+      if (config.automotiveApp)
+        RunnableSystemGenerator.generateRunnables(config, systemModel)
 
       //-------------------------------------
       // PRINT THE SYSTEM MODEL AS PDF
