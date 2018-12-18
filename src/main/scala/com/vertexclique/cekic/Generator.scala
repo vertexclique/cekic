@@ -154,8 +154,11 @@ object Generator {
       // val loadedModel = new ModelLoader(fSystem).generateSystem
 
       // Generate runnable mappings ifof automotive app generation selected
-      if (config.automotiveApp)
-        RunnableSystemGenerator.generateRunnables(config, systemModel)
+      if (config.automotiveApp) {
+        val fRunnablesCsv = s"${f.getPath}-$systemIndex-runnables.csv"
+        val runnables = RunnableSystemGenerator.generateRunnables(config, systemModel)
+        RunnableSystemGenerator.writeRunnables(runnables, fRunnablesCsv)
+      }
 
       //-------------------------------------
       // PRINT THE SYSTEM MODEL AS PDF

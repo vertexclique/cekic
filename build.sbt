@@ -9,6 +9,9 @@ version := "0.1"
 
 scalaVersion := "2.12.7"
 
+resolvers ++= Seq(
+  Resolver.sonatypeRepo("releases")
+)
 
 ///////////////////////////////////
 ////////// Dependencies ///////////
@@ -26,6 +29,7 @@ libraryDependencies ++= Seq(
   "org.json4s"                  %% "json4s-core"          % "3.6.2",
   "org.json4s"                  %% "json4s-xml"           % "3.6.2",
   "com.github.scopt"            %% "scopt"                % "3.7.0",
+  "com.github.melrief"          %% "purecsv"              % "0.1.1",
   "log4j"                       % "log4j"                 % log4jV,
   "commons-logging"             % "commons-logging"       % clV,
   "org.jdom"                    % "jdom"                  % jdomV,

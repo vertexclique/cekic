@@ -28,8 +28,6 @@ case class Config(
   maxLaxityConstrFactor: Double = 2.0,
 
   // Runnable specific config
-  perTaskRunnableCount: Int = 1000,
-  nonUniformBCETScaling: Boolean = true,
 )
 
 object ConfigParser {
@@ -103,9 +101,6 @@ object ConfigParser {
       c.copy(maxLaxityConstrFactor = x) } text "maxlax is minimum constraint laxity"
 
     // Runnable specific config
-
-    opt[Boolean]( "nonUniBCET") action { (x, c) =>
-      c.copy(nonUniformBCETScaling = x) } text "sets non-uniform BCET scaling for runnables. By default it is `true`."
 
   }
 }

@@ -82,24 +82,17 @@ object RunnableTimings {
     0 -> (1.20, 28.17)
   )
 
-  def getRandomFactor(start: Double, end: Double, rnd: Random) = {
-    val ustart = (start * 1000).toInt
-    val uend = (end * 1000).toInt
-    val r = ustart + rnd.nextInt( (uend - ustart) + 1 )
-    (r / 1000).toDouble
-  }
-
   def calculateRunnableBCETWCET(seed: Int): Map[Int, (Double, Double)] = {
     val r: Random = new scala.util.Random(seed)
 
     runnableACETS.map { case (duration, acet) =>
       // BCETS
       val bcetFactor = runnableBCETFactors.get(duration).head
-      val generatedBCET = getRandomFactor(bcetFactor._1, bcetFactor._2, rnd = r)
+      val generatedBCET = Helpers.getBetween(bcetFactor._1, bcetFactor._2, rnd = r) * acet
 
       // WCETS
       val wcetFactor = runnableWCETFactors.get(duration).head
-      val generatedWCET = getRandomFactor(wcetFactor._1, wcetFactor._2, rnd = r)
+      val generatedWCET = Helpers.getBetween(wcetFactor._1, wcetFactor._2, rnd = r) * acet
 
       duration -> (generatedBCET, generatedWCET)
     }
