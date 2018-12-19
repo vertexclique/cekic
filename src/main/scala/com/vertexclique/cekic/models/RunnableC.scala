@@ -23,5 +23,7 @@ case class RunnableBare(
   coreId: Int,
   wcet: Double,
   bcet: Double,
+  rpm: Double,
+  period: Int,
   bcetPercentage: Double
 )

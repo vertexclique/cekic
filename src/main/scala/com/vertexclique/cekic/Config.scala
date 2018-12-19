@@ -28,6 +28,8 @@ case class Config(
   maxLaxityConstrFactor: Double = 2.0,
 
   // Runnable specific config
+  maxRpm: Double = 7000,
+  cylinders: Int = 8,
 )
 
 object ConfigParser {
@@ -101,6 +103,11 @@ object ConfigParser {
       c.copy(maxLaxityConstrFactor = x) } text "maxlax is minimum constraint laxity"
 
     // Runnable specific config
+    opt[Double]("maxrpm") action { (x, c) =>
+      c.copy(maxRpm = x) } text "maxrpm is rpm before the redline starts"
+
+    opt[Int]("cyl") action { (x, c) =>
+      c.copy(cylinders = x) } text "cyl is engine cylinder count"
 
   }
 }
