@@ -25,5 +25,6 @@ case class RunnableBare(
   bcet: Double,
   rpm: Double,
   period: Int,
+  triggerType: String,
   bcetPercentage: Double
 )

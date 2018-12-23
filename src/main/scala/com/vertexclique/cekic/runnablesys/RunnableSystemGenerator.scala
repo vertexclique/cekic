@@ -15,7 +15,8 @@ object RunnableSystemGenerator {
 
   def writeRunnables(runnables: Iterable[RunnableBare], file: String): Unit = {
     runnables.toSeq.writeCSVToFileName(file, header=Some(Seq("id", "appId", "taskId",
-      "taskPriority", "coreId", "wcet", "bcet", "rpm", "period", "bcetPercentage")))
+      "taskPriority", "coreId", "wcet", "bcet", "rpm",
+      "period", "triggerType", "bcetPercentage")))
   }
 
   def calculateSporadicPeriod(rpm: Double, cylinders: Int): Int = {
@@ -23,7 +24,88 @@ object RunnableSystemGenerator {
     (asSeconds * 1000000).toInt // as microseconds
   }
 
-  def generateRunnables(config: Config, systemModel: SystemModel): Iterable[RunnableBare] = {
+  /**
+   * Creates gaussian distribution of runnables over the internal task list.
+   * When life gives you lemons, don't make lemonade. Make the life take the lemons back!
+   * Get mad! I don't want your damn lemons! What am I supposed to do with these?!??!!?!
+   *
+   * @param config
+   * @param systemModel
+   * @return
+   */
+  def generateRunnables(
+    config: Config,
+    systemModel: SystemModel
+  ): Iterable[RunnableBare] = {
+    systemModel.getApplications.asScala.flatMap { app =>
+      val taskList = new java.util.HashMap[String, Task](app.getTaskList).asScala
+      val r = new scala.util.Random(config.seed)
+      val runnableAmount = Helpers.getBetween(1000, 1500, r).toInt
+      //      val pd = runnablePeriodDistribution.mapValues(_ * (runnableAmount / 100))
+
+      val runnablePerTask = math.ceil(runnableAmount / taskList.size).toInt
+
+      val runnables = taskList.flatMap { case (taskuuid, task) =>
+        // Initialize randomness of the runnable wcet and bcets
+
+        val taskWCET: Int = task.getWCET
+        val taskBCET: Int = task.getBCET
+
+        val taskRunnableAmount =
+          runnablePeriodDistribution.mapValues(x => math.ceil(x * (runnablePerTask.toDouble / 100)).toInt)
+
+        taskRunnableAmount.flatMap { case (duration, runAmount) =>
+          (1 to runAmount).map { runId =>
+            val runnableBCETWCET = calculateRunnableBCETWCET(config.seed + runId)
+
+            val runnableId = if (duration == 0) {
+              s"R_AngleSync_${runId}"
+            }
+            else { s"R_${duration}us_${runId}" }
+
+            val trigger: String = if (duration == 0) "sporadic" else "periodic"
+
+            RunnableBare(
+              id = runnableId,
+              appId = app.getAppId,
+              taskId = taskuuid,
+              taskPriority = task.getPrio,
+              coreId = task.getMappedTo.getResId,
+              wcet = runnableBCETWCET.get(duration).head._2,
+              bcet = runnableBCETWCET.get(duration).head._1,
+              rpm = 0,
+              period = duration,
+              triggerType = trigger,
+              bcetPercentage = config.bcetPercentage
+            )
+          }
+        }
+      }
+
+      // Sporadic task assignment
+      val minRpm = 600D
+      val rpms: Seq[BigDecimal] = Range.BigDecimal(minRpm, config.maxRpm, 1D) ++ Range.BigDecimal(config.maxRpm, minRpm-1, -1D)
+      val rpmWave = Stream.continually(rpms.toStream).flatten
+
+      (runnables zip rpmWave).map { case (runnable, givenRpm) =>
+        val genPeriod = if (runnable.period == 0) { calculateSporadicPeriod(givenRpm.toDouble, config.cylinders) } else runnable.period
+        runnable.copy(
+          period = genPeriod,
+          rpm = givenRpm.toDouble)
+      }
+    }
+  }
+
+  /**
+   * Creates avalanche effect internally oin task groups
+   * @param config
+   * @param systemModel
+   * @return
+   */
+  def generateRunnablesWithInternalTaskMapping(
+    config: Config,
+    systemModel: SystemModel
+  ): Iterable[RunnableBare] = {
     systemModel.getApplications.asScala.flatMap { app =>
       val taskList = new java.util.HashMap[String, Task](app.getTaskList).asScala
       val r = new scala.util.Random(config.seed)
@@ -49,7 +131,7 @@ object RunnableSystemGenerator {
             }
             else { s"R_${duration}us_${runId}" }
 
-            val isPeriodicOrSporadic: String = if (duration == 0) "sporadic" else "periodic"
+            val trigger: String = if (duration == 0) "sporadic" else "periodic"
 
             RunnableBare(
               id = runnableId,
@@ -61,6 +143,7 @@ object RunnableSystemGenerator {
               bcet = runnableBCETWCET.get(duration).head._1,
               rpm = 0,
               period = duration,
+              triggerType = trigger,
               bcetPercentage = config.bcetPercentage
             )
           }
